@@ -139,7 +139,6 @@ function createAccordionItems(data) {
     }
 
     data.forEach((task, index) => {
-        // Create accordion button
         const button = document.createElement("button");
         button.classList.add("accordion");
         let status = task.status == true ? "Complete" : "Pending"
@@ -154,12 +153,10 @@ function createAccordionItems(data) {
         `;
         accordion.appendChild(button);
 
-        // Create accordion panel
         const panel = document.createElement("div");
         panel.classList.add("panel");
         accordion.appendChild(panel);
 
-        // Create task details inside the panel
         const taskDetails = `
             <div class="task-main-block">
                 <div class="task-info-block">
@@ -198,7 +195,6 @@ function createAccordionItems(data) {
         `;
         panel.innerHTML = taskDetails;
 
-        // Add event listener to accordion button for toggling panel visibility
         button.addEventListener("click", function () {
             this.classList.toggle("active");
             const panel = this.nextElementSibling;
@@ -323,11 +319,9 @@ async function validateForm() {
             priorityInput = priority[i].value;
         }
     }
-    // Display respective error messages
     nameError.style.display = isNameValid ? "none" : "block";
     createDateError.style.display = isCreateDateValid ? "none" : "block";
 
-    // Check if due date is valid and not less than create date
     const createDate = new Date(createDateInput.value);
     const dueDate = new Date(dueDateInput.value);
     if (isDueDateValid) {
@@ -343,7 +337,6 @@ async function validateForm() {
 
     dueDateError.style.display = isDueDateValid ? "none" : "block";
 
-    // If any field is not valid, prevent form submission
     if (!isNameValid || !isCreateDateValid || !isDueDateValid || !isPrioritySelected) {
         return;
     }
@@ -435,11 +428,9 @@ async function validateUpdateForm() {
     let isCompleteDateValid = completeDateInput.value === "" || completeDateInput.value >= createDateInput.value;
     const isPrioritySelected = highPriorityInput.checked || mediumPriorityInput.checked || lowPriorityInput.checked;
 
-    // Display respective error messages
     nameError.style.display = isNameValid ? "none" : "block";
     createDateError.style.display = isCreateDateValid ? "none" : "block";
 
-    // Check if due date is valid and not less than create date
     const createDate = new Date(createDateInput.value);
     const dueDate = new Date(dueDateInput.value);
     if (isDueDateValid) {
@@ -453,7 +444,6 @@ async function validateUpdateForm() {
         dueDateError.textContent = "Due date is required";
     }
 
-    // Check if complete date is valid and greater than or equal to create date or empty
     const completeDate = new Date(completeDateInput.value);
     const todayDate = new Date(todaysDate());
 
@@ -476,12 +466,10 @@ async function validateUpdateForm() {
         completeDateFutureError.textContent = "";
     }
 
-    // Check if both due date and complete date are valid
     dueDateError.style.display = isDueDateValid ? "none" : "block";
     completeDatePastError.style.display = isCompleteDateValid ? "none" : "block";
     completeDateFutureError.style.display = isCompleteDateValid ? "none" : "block";
 
-    // If any field is not valid, prevent form submission
     if (!isNameValid || !isCreateDateValid || !isDueDateValid || !isCompleteDateValid || !isPrioritySelected) {
         return false;
     }
@@ -497,7 +485,7 @@ async function validateUpdateForm() {
     }
 
     let userPresent = await findTaskByTaskName(taskNameInput.value)
-    if (userPresent === true && sessionStorage.getItem("task-name") != taskNameInput.value) { // apply condition here
+    if (userPresent === true && sessionStorage.getItem("task-name") != taskNameInput.value) { 
         console.log("In same ");
         // nameError.textContent = "Task name already exist"
         document.getElementById("popup-exist").style.display = "block";
