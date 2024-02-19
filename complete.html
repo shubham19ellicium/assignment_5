@@ -11,10 +11,28 @@
 </head>
 <body>
 
-    <div id="nav-placeholder">
+    <!-- <div id="nav-placeholder">
 
-    </div>
+    </div> -->
 
+    <nav class="bar" id="bar-id">
+        <div class="logo">
+            <h3 onclick="location.href='index.html'">TASK</h3>
+        </div>
+        <div class="club">
+            <form class="search-block">
+                <input type="text" autocomplete="off" id="search-input-id" placeholder="Search.." maxlength="120">
+                <button onclick="submitSearchValue()" ><i class="fa fa-search"></i></button>
+            </form>
+            <div class="tabs">
+                <ul>
+                    <li class="tabs-list" id="link-1" onclick=" location.href='pending.html'">Pending Task</li>
+                    <li class="tabs-list" id="link-2" onclick=" location.href='complete.html'">Completed Task</li>
+                    <li class="tabs-list" id="link-3" onclick=" location.href='chart.html'">Charts</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="overlay" id="overlay"></div>
     <div class="form-block" id="pop-for-upload">
@@ -154,9 +172,10 @@
             </tbody>
         </table>
 
-        <div class="error-message-block">
-            <p class="no-data-error" id="no-data-text-id"></p>
-        </div>
+    </div>
+    
+    <div class="error-message-block">
+        <p class="no-data-error" id="no-data-text-id"></p>
     </div>
 
     <div class="bottom-block" id="bottom-block-id">
@@ -187,11 +206,28 @@
        
     </div>
 
+    <div id="popup-update" class="popup">
+        <div class="popup-content">
+            <div class="seccess-img-block">
+                <img src="./assets/images/checked.png" class="success-img" alt="">
+            </div>
+            <p>Data Updated Successfully!</p>
+        </div>
+    </div>
 
-    <script>
+    <div id="popup-delete" class="popup">
+        <div class="popup-content">
+            <div class="seccess-img-block">
+                <img src="./assets/images/bin.png" class="success-img" alt="">
+            </div>
+            <p id="">Task deleted Successfully!</p>
+        </div>
+    </div>
+
+    <!-- <script>
         $(function(){
           $("#nav-placeholder").load("nav.html");
         });
-    </script>
+    </script> -->
 </body>
 </html>

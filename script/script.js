@@ -134,6 +134,9 @@ fetchDateData()
 
 function createAccordionItems(data) {
     const accordion = document.getElementById("accordion");
+    while (accordion.lastChild) {
+        accordion.removeChild(accordion.lastChild);
+    }
 
     data.forEach((task, index) => {
         // Create accordion button
@@ -603,4 +606,30 @@ function handleUpdateStatus(status,id) {
             }
         })
     }
+}
+
+const fetchFilterSearchData = async (text) => {
+    let date = todaysDate()
+    const response = await fetch(`http://localhost:3000/data?q=${text}&createDate=${date}`)
+    const responseData = await response.json()
+    console.log("DATA :: ", responseData);
+    const errorText = document.getElementById("no-data-text-id")
+    if (responseData.length == 0 || responseData.length == null) {
+        errorText.style.display = "block"
+    }else{
+        errorText.style.display = "none"
+    }
+
+    if (text.length === 0) {
+        fetchDateData()
+    }else{
+        createAccordionItems(responseData)
+    }
+}
+
+function submitSearchValue(){
+    console.log("I AM IN HOME");
+    event.preventDefault()
+    var searchInputId = document.getElementById("search-input-id")
+    fetchFilterSearchData(searchInputId.value)
 }

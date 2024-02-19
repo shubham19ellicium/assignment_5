@@ -28,12 +28,23 @@ body {
 
 /* --------- Nav Bar ----------- */
 
+.nav-bar.blur{
+    filter: blur(2px);
+    pointer-events: none;
+}
+
 .bar {
-    padding: 12px 4px;
+    /* padding: 12px 4px;
+    background-color: var(--blue-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    padding: 0px 0px;
     background-color: var(--blue-primary);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 50px;
 }
 
 .logo h3 {
@@ -42,22 +53,29 @@ body {
     cursor: pointer;
 }
 
+.tabs{
+    height: 100%;
+}
+
+.tabs ul{
+    height: 100%;
+}
+
 .tabs li {
     list-style-type: none;
     display: inline-flex;
-    margin: 0px 8px;
+    /* margin: 0px 8px; */
+    padding: 0px 8px;
     color: white;
     cursor: pointer;
     transition: 0.2s;
+    height: 100%;
+    align-items: center;
 }
 
 .tabs li:hover {
-    text-decoration: underline;
+    background-color: #444;
     scale: 1.01;
-}
-
-.tabs {
-    margin: 0px 8px;
 }
 
 .tabs-list.highlight {
@@ -90,7 +108,9 @@ body {
 .club {
     display: flex;
     align-items: center;
+    height: 100%;
 }
+
 
 /* --------- Nav Bar End ----------- */
 

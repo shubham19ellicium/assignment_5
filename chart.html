@@ -15,9 +15,28 @@
 </head>
 <body>
     
-    <div id="nav-placeholder">
+    <!-- <div id="nav-placeholder">
 
-    </div>
+    </div> -->
+
+    <nav class="bar" id="bar-id">
+        <div class="logo">
+            <h3 onclick="location.href='index.html'">TASK</h3>
+        </div>
+        <div class="club">
+            <form class="search-block">
+                <input type="text" autocomplete="off" id="search-input-id" placeholder="Search.." maxlength="120">
+                <button onclick="submitSearchValue()" ><i class="fa fa-search"></i></button>
+            </form>
+            <div class="tabs">
+                <ul>
+                    <li class="tabs-list" id="link-1" onclick=" location.href='pending.html'">Pending Task</li>
+                    <li class="tabs-list" id="link-2" onclick=" location.href='complete.html'">Completed Task</li>
+                    <li class="tabs-list" id="link-3" onclick=" location.href='chart.html'">Charts</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="select-date-block">
         <select class="form-input" name="select-level" id="select-level-id" onchange="handleSelectChange()">
@@ -36,10 +55,10 @@
     <p id="error-message"></p>
     <div id="chartdiv"></div>
 
-    <script>
+    <!-- <script>
         $(function () {
             $("#nav-placeholder").load("nav.html");
         });
-    </script>
+    </script> -->
 </body>
 </html>

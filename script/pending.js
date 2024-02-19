@@ -14,7 +14,9 @@ var SORTING_COUNTER = false
 var FILTER_SEARCH_FLAG = false
 var updatedCheckId;
 
-// document.getElementById('link-1').style.color = "black"
+document.getElementById("link-1").style.backgroundColor = "#444";
+// document.getElementById("link-1").style.textDecoration = "underline";
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var selectedValue = document.getElementById("select-option-id");
@@ -648,6 +650,8 @@ function decrementPage() {
     }
     if (SORTING_COUNTER === true) {
         renderSortedDataFromArray()
+    }else if (FILTER_SEARCH_FLAG == true) {
+        renderFilterDataFromArray()
     } else {
         renderDataFromArray()
     }

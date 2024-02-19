@@ -13,9 +13,28 @@
 
 <body>
 
-    <div id="nav-placeholder" class="nav-bar">
+    <!-- <div id="nav-placeholder" class="nav-bar">
 
-    </div>
+    </div> -->
+
+    <nav class="bar" id="bar-id">
+        <div class="logo">
+            <h3 onclick="location.href='index.html'">TASK</h3>
+        </div>
+        <div class="club">
+            <form class="search-block">
+                <input type="text" autocomplete="off" id="search-input-id" placeholder="Search.." maxlength="120">
+                <button onclick="submitSearchValue()" ><i class="fa fa-search"></i></button>
+            </form>
+            <div class="tabs">
+                <ul>
+                    <li class="tabs-list" id="link-1" onclick=" location.href='pending.html'">Pending Task</li>
+                    <li class="tabs-list" id="link-2" onclick=" location.href='complete.html'">Completed Task</li>
+                    <li class="tabs-list" id="link-3" onclick=" location.href='chart.html'">Charts</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="grid-container" id="grid-container-id">
         <div class="side-pannel">
@@ -86,7 +105,9 @@
                 <div class="date-header">
                     <p class="today-date" id="today-date-id">100</p>
                 </div>
-                
+                <div class="error-message-block">
+                    <p class="no-data-error" id="no-data-text-id">No data to display</p>
+                </div>
                 <div class="accordium-block" id="accordion">
                     <!-- Accordion items will be dynamically added here -->
                 </div>
@@ -239,11 +260,11 @@
 
 
 
-    <script>
+    <!-- <script>
         $(function () {
             $("#nav-placeholder").load("nav.html");
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

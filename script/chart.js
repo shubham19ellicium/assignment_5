@@ -1,15 +1,6 @@
 var ERROR_MESSAGE = document.getElementById("error-message")
-// sessionStorage.setItem("page-number",1)
 
-// function markNav() {
-//     var linkOne = document.getElementById("link-1")
-//     var linkTwo = document.getElementById("link-2")
-//     var linkThree = document.getElementById("link-3")
-
-//     linkThree.style.color = "black"
-//     linkThree.style.fontWeight = "bolder"
-// }
-// markNav()
+document.getElementById("link-3").style.backgroundColor = "#444";
 
 function formatDate(date) {
     let readableDate = new Date(date)
@@ -107,7 +98,10 @@ async function makeChartForDate() {
     var selection = document.getElementById("select-level-id");
 
     if (date == "Invalid Date") {
-        getData()
+        // getData()
+        // makeChart()
+        ERROR_MESSAGE.innerHTML = "No date to display"
+        makeChart([])
     } else {
         if (selection.value == 0) {
             let response = await getDataByDate(date)
@@ -156,7 +150,7 @@ async function makeChartForDateDue() {
     var date = new Date(selectDate.value).toLocaleDateString('en-CA')
     console.log("DATE :: ", date);
     if (date == "Invalid Date") {
-        getData()
+        // getData()
     } else {
         let response = await getDataByDueDate(date)
         if (response.length == 0) {

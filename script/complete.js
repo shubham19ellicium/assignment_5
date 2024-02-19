@@ -10,18 +10,24 @@ var STORE_ARRAY = []
 var popUpId = document.getElementById("pop-for-upload")
 
 var SORTING_COUNTER = false
+var FILTER_SEARCH_FLAG = false
 
-// function markNav(){
-//     var linkOne = document.getElementById("link-1")
-//     var linkTwo = document.getElementById("link-2")
-//     var linkThree = document.getElementById("link-3")
+document.getElementById("link-2").style.backgroundColor = "#444";
 
-//     linkTwo.style.color = "black"
-//     linkTwo.style.fontWeight = "bolder"
-// }
-// markNav()
-
-// sessionStorage.setItem("page-number",1)
+document.addEventListener("DOMContentLoaded", function() {
+    var selectedValue = document.getElementById("select-option-id");
+    console.log("RUN AFTER RELOAD");
+    console.log("SESSION LOG :: ",sessionStorage.getItem("page-total-list"));
+    console.log("PAGE NUMBER :: ",sessionStorage.getItem("page-number"));
+    console.log("PAGE COUNT :: ",sessionStorage.getItem("page-count"));
+    if (sessionStorage.getItem("page-number") != null && sessionStorage.getItem("page-count") != null) {
+        PAGE_NUMBER = parseInt(sessionStorage.getItem("page-number"), 10)
+        PAGE_COUNT = parseInt(sessionStorage.getItem("page-count"), 10)
+        selectedValue.value = parseInt(sessionStorage.getItem("page-total-list"), 10)
+        selectedValue.options[selectedValue.selectedIndex].text = sessionStorage.getItem("page-total-list")
+        sessionStorage.clear()
+    }
+});
 
 const fetchSortedData = async (table, method) => {
     const response = await fetch(`http://localhost:3000/data?_sort=${table}&_order=${method}&status=true`) // data?_sort=name&_order=asc
@@ -43,6 +49,7 @@ const fetchSortedData = async (table, method) => {
 }
 
 function renderDataFromArrayWithStatus() {
+    FILTER_SEARCH_FLAG = false
     var highArray = []
     var mediumArray = []
     var lowArray = []
@@ -118,6 +125,27 @@ function createHtml(data) {
     // </td>
 }
 
+function handleDelete(id) {
+    var selectedValue = document.getElementById("select-option-id").value;
+    sessionStorage.setItem("page-number", PAGE_NUMBER)
+    sessionStorage.setItem("page-count", PAGE_COUNT)
+    sessionStorage.setItem("page-total-list", selectedValue)
+    fetch("http://localhost:3000/data/" + id, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+
+    }).then(data => {
+        console.log("RESPONSE DATA :: ", data.status)
+        if (data.status == 200) {
+            document.getElementById("popup-delete").style.display = "block";
+            setTimeout(closePopup, 3000);
+        }
+    })
+
+}
+
 function updateIndex() {
     var currentIndexId = document.getElementById("span-current-page-id")
     var endIndexId = document.getElementById("span-end-page-id")
@@ -154,7 +182,23 @@ const fetchCompleteDateData = async () => {
 
 fetchCompleteDateData()
 
+
+function handleSelectionChange() {
+    var selectedValue = document.getElementById("select-option-id").value;
+    PAGE_NUMBER = 1
+    PAGE_COUNT = selectedValue
+    renderDataFromArrayWithStatus()
+}
+
 function handleOnUnChecked(id) {
+
+    var selectedValue = document.getElementById("select-option-id").value;
+
+    var date = todaysDate()
+
+    sessionStorage.setItem("page-number", PAGE_NUMBER)
+    sessionStorage.setItem("page-count", PAGE_COUNT)
+    sessionStorage.setItem("page-total-list", selectedValue)
 
     fetch("http://localhost:3000/data/" + id, {
         method: "PATCH",
@@ -165,7 +209,18 @@ function handleOnUnChecked(id) {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-    });
+    }).then(data => {
+        console.log("RESPONSE DATA :: ", data.status)
+        if (data.status == 200) {
+            document.getElementById("popup-update").style.display = "block";
+            setTimeout(closePopup, 3000);
+        }
+    })
+}
+
+function closePopup() {
+    document.getElementById("popup-update").style.display = "none";
+    location.reload();
 }
 
 var taskFlag = false
@@ -302,6 +357,8 @@ function incrementPage() {
     // added 
     if (SORTING_COUNTER === true) {
         renderSortedDataFromArray()
+    }else if (FILTER_SEARCH_FLAG == true) {
+        renderFilterDataFromArray()
     } else {
         renderDataFromArrayWithStatus()
     }
@@ -325,6 +382,8 @@ function decrementPage() {
     // added
     if (SORTING_COUNTER === true) {
         renderSortedDataFromArray()
+    }else if (FILTER_SEARCH_FLAG == true) {
+        renderFilterDataFromArray()
     } else {
         renderDataFromArrayWithStatus()
     }
@@ -332,7 +391,7 @@ function decrementPage() {
 }
 
 const fetchFilterSearchData = async (text) => {
-
+    FILTER_SEARCH_FLAG = true
     const response = await fetch(`http://localhost:3000/data?q=${text}&status=true`)
     const responseData = await response.json()
     console.log("DATA :: ", responseData);
@@ -370,7 +429,7 @@ function submitSearchValue() {
 }
 
 function renderFilterDataFromArray() {
-    PAGE_NUMBER = 1
+    // PAGE_NUMBER = 1
     var errorMessageId = document.getElementById("no-data-text-id")
 
     while (WRAPPER.lastChild) {
